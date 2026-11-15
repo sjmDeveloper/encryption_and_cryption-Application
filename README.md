@@ -1,14 +1,26 @@
-<h1>1. What is this:</h1>
-<h6>This is a desktop app to decrypt & encrypt text.</h6>
-<h1>2. Why I Made It:</h1>
-<h6>To test algebra for cryptography.</h6>
-<h1>3. How to use it:</h1>
-<h5>1. Install CMake if it is not installed.</h5>
-<h3>2. Open CMD on Windows or Terminal on Linux, then copy this:</h3>
-<h4>cd your_file_path</h4>
-<h4>mkdir build</h4>
-<h4>cd build</h4>
-<h4>cmake ..</h4>
-<h4>make</h4> 
-<h1>4. Version:</h1>
-<h4>1.0.0</h4>
+# Text Encryption & Decryption App
+
+## 1. What Is This?
+This is a desktop application built to encrypt and decrypt text.
+
+## 2. Why I Made It
+I created this project to test and apply algebraic concepts in cryptography.
+
+## 3. How to Use It
+
+### 1. Prerequisites
+Install **CMake** on your system if it is not already installed.
+
+### 2. Build Instructions
+Open **CMD** on Windows or **Terminal** on Linux, then run the following commands:
+
+```bash
+cd your_file_path
+mkdir build
+cd build
+cmake ..
+make
+```
+
+## 4. Version
+`1.0.0`
