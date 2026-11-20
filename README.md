@@ -1,57 +1,58 @@
 # Text Encryption & Decryption App
 
 ## 1. About the Project
-A desktop cryptography application built with C/C++ to encrypt and decrypt text using modular arithmetic (Caesar Cipher with a shift of 5).
+A desktop cryptography application built with **C++ and Qt6** that encrypts and decrypts lowercase alphabetical text using modular arithmetic (Caesar Cipher with a shift of 5).
 
-## 2. Motivation & Features
-* **Motivation:** Created to test and apply algebraic concepts and modular arithmetic ($\mathbb{Z}/26\mathbb{Z}$) in practical cryptography.
-* **Key Features:**
-  * **Text Encryption:** Shifts alphabetical characters forward by 5 positions modulo 26.
-  * **Text Decryption:** Reverses the shift backward by 5 positions modulo 26 to restore the original text.
-  * **Lightweight & Fast:** Built with low-level C/C++ for high execution speed and zero overhead.
+## 2. Motivation & Architecture
+* **Motivation:** Created to apply modular arithmetic ($\mathbb{Z}/26\mathbb{Z}$) and functional C++ (`std::function` lambdas) inside a clean Qt6 GUI.
+* **Project Structure:**
+  * `math/application.h`: Core application class managing character-by-character transformation pipelines.
+  * `math/encrypt_crypt.h`: Defines the `crypt` and `uncrypt` functional lambdas (`std::function<num(num)>`) with constants `lenletter = 26` and `add = 5`.
+  * `math/setToQstring.h`: Bridges standard C++ data types with Qt's `QString` for GUI rendering.
+  * `mainwindow.h / .cpp / .ui`: Qt6 graphical user interface for text input and output.
 
-## 3. Mathematics & Algebraic Formulation
-The encryption and decryption algorithms are based on **Modular Arithmetic (Congruences)** over the ring $\mathbb{Z}/26\mathbb{Z}$, where each letter of the English alphabet is mapped to an integer $x \in \{0, 1, 2, \dots, 25\}$ (with $A=0, B=1, \dots, Z=25$) and a shift key $k = 5$:
+## 3. Mathematics & Code Implementation
+Each lowercase letter $c \in \{'a', \dots, 'z'\}$ is mapped to its zero-based alphabetical index $x = \text{ASCII}(c) - \text{ASCII}('a') \in \{0, \dots, 25\}$, while space characters (`' '`) remain untouched:
 
-### Encryption Function ($E_5$)
-$$E_5(x) \equiv (x + 5) \pmod{26}$$
+### Encryption (`crypt` lambda)
+$$E_5(x) = \begin{cases} \text{' '} & \text{if } c = \text{' '} \\ (x + \text{add}) \bmod \text{lenletter} + \text{ASCII}('a') & \text{otherwise} \end{cases}$$
 
-### Decryption Function ($D_5$)
-$$D_5(y) \equiv (y - 5) \equiv (y + 21) \pmod{26}$$
+### Decryption (`uncrypt` lambda)
+$$D_5(x) = \begin{cases} \text{' '} & \text{if } c = \text{' '} \\ ((x - \text{add}) \bmod \text{lenletter}) + \text{ASCII}('a') & \text{otherwise} \end{cases}$$
 
 Where:
-* **$x$**: Numerical index of the plaintext character ($0 \leq x \leq 25$).
-* **$y$**: Numerical index of the ciphertext character ($0 \leq y \leq 25$).
-* **$k = 5$**: The shift key (5 steps).
-* **$\pmod{26}$**: Ensures cyclic wrapping around the 26-letter alphabet (Note: adding $21$ in decryption avoids negative remainders in C/C++ `%` operator, since $-5 \equiv 21 \pmod{26}$).
+* **`lenletter = 26`**: Size of the English alphabet ($\mathbb{Z}/26\mathbb{Z}$).
+* **`add = 5`**: Modular shift key.
+* **Space Handling (`x == (int)' '`)**: Preserves whitespace directly without applying modular arithmetic.
 
 ## 4. Prerequisites & Installation
-Before building and running the application, ensure you have **CMake** and a C/C++ compiler installed on your system:
+Before building and running the application, ensure you have **Qt6**, **CMake**, and a C++ compiler installed:
 
 ### Linux
 * **Ubuntu / Debian / Mint:**
   ```bash
-  sudo apt-get update && sudo apt-get install cmake build-essential
+  sudo apt-get update && sudo apt-get install qt6-base-dev cmake build-essential
   ```
 * **Fedora / RHEL / CentOS:**
   ```bash
-  sudo dnf install cmake gcc gcc-c++
+  sudo dnf install qt6-qtbase-devel cmake gcc-c++
   ```
 * **Arch Linux / Manjaro:**
   ```bash
-  sudo pacman -S cmake base-devel
+  sudo pacman -S qt6-base cmake base-devel
   ```
 * **openSUSE:**
   ```bash
-  sudo zypper install cmake gcc gcc-c++
+  sudo zypper install qt6-base-devel cmake gcc-c++
   ```
 * **Alpine Linux:**
   ```bash
-  sudo apk add cmake build-base
+  sudo apk add qt6-qtbase-dev cmake build-base
   ```
+* **Other Distributions:** Install via the [Official Qt Online Installer](https://qt.io) or your distribution's package manager.
 
 ### Windows
-Download and install **CMake** from the [Official CMake Download Page](https://cmake.org) along with a C/C++ compiler (MinGW or MSVC).
+Download and install **Qt6** (along with MinGW and CMake) from the [Official Qt Download Page](https://qt.io).
 
 ## 5. Build & Run
 
@@ -68,11 +69,11 @@ cmake --build .
 ### 2. Run the Application
 * **On Linux:**
   ```bash
-  ./encryption_app
+  ./encryption_and_cryption-Application
   ```
 * **On Windows (CMD):**
   ```cmd
-  encryption_app.exe
+  encryption_and_cryption-Application.exe
   ```
 
 ## 6. Version
