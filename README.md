@@ -59,7 +59,7 @@ Download and install **Qt6** (along with MinGW and CMake) from the [Official Qt 
 ### 1. Clone & Build
 Open your Terminal (Linux) or Command Prompt (Windows) and run:
 ```bash
-git clone https://github.com
+git clone https://github.com/sjmDeveloper/encryption_and_cryption-Application
 cd encryption_and_cryption-Application
 mkdir build && cd build
 cmake ..
